@@ -1,0 +1,38 @@
+.table .table{
+	background-color: #fff;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th{
+	border-top: none;
+}
+
+.table-question > tbody > tr > td:nth-child(1),
+.table-option > tbody > tr > td:nth-child(1){
+	width: 40px;
+}
+
+.table-question > tbody > tr > td:nth-child(2),
+.table-question > tbody > tr > td:nth-child(4),
+.table-option > tbody > tr > td:nth-child(4),
+.table-option > tbody > tr > td:nth-child(5){
+	width: 30px;
+}
+
+.table-question > tbody > tr > .option-column{
+	padding-right: 0px;
+	padding-top: 0px;
+	width: auto;
+}
+
+.table-option > tbody > tr > td:nth-child(2){
+	width: 70px;
+}
+
+.scroll-up:hover{
+	text-decoration: none;
+}
