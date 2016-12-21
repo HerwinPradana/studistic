@@ -11,8 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ url('/') }}/css/app.css" rel="stylesheet">
-    <link href="{{ url('/') }}/css/custom.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -20,9 +20,10 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    <script src="{{ url('/') }}/js/jquery.js"></script>
-    <script src="{{ url('/') }}/js/chartjs/Chart.js"></script>
-    <script src="{{ url('/') }}/js/bootstrap.js"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/chartjs/Chart.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/utility.js') }}"></script>
 </head>
 <body>
     <div id="app">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('student/layouts.app')
 
 @section('content')
 <style>
@@ -8,17 +8,17 @@
 	}
 </style>
 <div class="panel panel-default">
-    <div class="panel-heading">Class Details</div>
+    <div class="panel-heading">Informasi Kelas</div>
 
     <div class="panel-body">
         <table class="table table-borderless">
         	<tbody>
 				<tr>
-					<th style="width: 50px;">Name</th>
+					<th style="width: 150px;">Nama</th>
 					<td>{{ $class->name }}</td>
 				</tr>
 				<tr>
-					<th>Subject</th>
+					<th>Mata Pelajaran</th>
 					<td>{{ $class->subject }}</td>
 				</tr>
 				<tr>
@@ -26,21 +26,20 @@
 					<td>{{ $class->semester }}</td>
 				</tr>
 				<tr>
-					<th>Year</th>
+					<th>Tahun</th>
 					<td>{{ $class->year }}</td>
 				</tr>
 				<tr>
-					<th>Students</th>
+					<th>Daftar Siswa</th>
 					<td>
 						<table class="table">
 							<thead>
 								<tr>
 									<th style="width: 50px;">No</th>
 									<th class="text-center" style="width: 100px;">NIM</th>
-									<th>Name</th>
-									<th>Best Subject</th>
+									<th>Nama</th>
 									<th class="text-center" style="width: 85px;">Semester</th>
-									<th class="text-center" style="width: 75px;">Year</th>
+									<th class="text-center" style="width: 75px;">Angkatan</th>
 									<th style="width: 30px;"></th>
 								</tr>
 							</thead>
@@ -51,7 +50,6 @@
 											<td>{{ $i + 1 }}</td>
 											<td>{{ $student->id_num }}</td>
 											<td>{{ $student->name }}</td>
-											<td>Lolilogy</td>
 											<td class="text-center">5</td>
 											<td class="text-center">{{ date('Y', strtotime($student->created_at)) }}</td>
 											<td>

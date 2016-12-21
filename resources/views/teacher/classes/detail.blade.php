@@ -35,10 +35,9 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th style="width: 50px;">No</th>
+									<th style="width: 150px;">No</th>
 									<th class="text-center" style="width: 100px;">NIM</th>
 									<th>Nama</th>
-									<th>Mata Pelajaran Terbaik</th>
 									<th class="text-center" style="width: 85px;">Semester</th>
 									<th class="text-center" style="width: 75px;">Angkatan</th>
 									<th style="width: 30px;"></th>
@@ -51,7 +50,6 @@
 											<td>{{ $i + 1 }}</td>
 											<td>{{ $student->id_num }}</td>
 											<td>{{ $student->name }}</td>
-											<td>Lolilogy</td>
 											<td class="text-center">5</td>
 											<td class="text-center">{{ date('Y', strtotime($student->created_at)) }}</td>
 											<td>

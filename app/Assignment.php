@@ -12,10 +12,14 @@ class Assignment extends Model{
     protected $fillable = ['name', 'description'];
     
     public function classes(){
-    	return $this->belongsTo('Studistic\Classes', 'class_id');
+    	return $this->belongsTo('Studistic\Classes', 'class_subject_id');
     }
     
     public function questions(){
     	return $this->hasMany('Studistic\Question', 'assignment_id');
+	}
+    
+    public function attempts(){
+    	return $this->hasMany('Studistic\Attempt', 'assignment_id');
 	}
 }

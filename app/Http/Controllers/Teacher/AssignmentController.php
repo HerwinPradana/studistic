@@ -16,8 +16,7 @@ class AssignmentController extends Controller{
     }
     
     public function index(){
-	    $assignment = new Assignment();
-	    $data	 	= $assignment->orderBy('created_at', 'desc')->get();
+	    $data	 	= Assignment::orderBy('created_at', 'desc')->get();
 	    
         return view('teacher/assignments/index', ['assignments' => $data]);
     }
@@ -37,9 +36,9 @@ class AssignmentController extends Controller{
     public function store(Request $request){
     	$assignment = new Assignment();
     	
-    	$assignment->class_id	 = $request->input('class_id');
-    	$assignment->name		 = $request->input('name');
-    	$assignment->description = $request->input('description');
+    	$assignment->class_subject_id	= $request->input('class_id');
+    	$assignment->name			 	= $request->input('name');
+    	$assignment->description	 	= $request->input('description');
 
 		$status = $assignment->save();
     	
@@ -87,9 +86,9 @@ class AssignmentController extends Controller{
     	
     	$assignment = Assignment::find($id);
     	
-    	$assignment->class_id	 = $request->input('class_id');
-    	$assignment->name		 = $request->input('name');
-    	$assignment->description = $request->input('description');
+    	$assignment->class_subject_id	= $request->input('class_id');
+    	$assignment->name		 		= $request->input('name');
+    	$assignment->description 		= $request->input('description');
 
 		$status = $assignment->save();
     	

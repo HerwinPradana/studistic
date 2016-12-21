@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('student/layouts.app')
 
 @section('content')
 <div class="panel panel-default">
@@ -21,8 +21,8 @@
 		    		<th>Nama</th>
 		    		<th>Kelas</th>
 		    		<th>Mata Pelajaran</th>
-		    		<th class="text-center" style="width: 175px;">Status Pengerjaan</th>
-		    		<th style="width: 90px;"></th>
+		    		<th class="text-center" style="width: 175px;">Tanggal</th>
+		    		<th style="width: 70px;"></th>
         		</tr>
         	</thead>
         	<tbody>
@@ -33,22 +33,15 @@
 							<td>{{ $assignment->name }}</td>
 							<td>{{ $assignment->classes->name }}</td>
 							<td>{{ $assignment->classes->subject }}</td>
-							<td class="text-center">{{ $assignment->classes->students->count() }}/{{ $assignment->classes->students->count() }}</td>
+							<td class="text-center">{{ $assignment->created_at }}</td>
 							<td>
 								<div class="btn-group pull-right" role="group">
-								  	<a href="{{ url('/teacher/assignments/'.$assignment->id) }}" type="button" class="btn btn-primary btn-xs">
+								  	<a href="{{ url('/assignments/'.$assignment->id) }}" type="button" class="btn btn-primary btn-xs">
 								  		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								  	</a>
-								  	<a href="{{ url('/teacher/assignments/'.$assignment->id.'/edit') }}" type="button" class="btn btn-warning btn-xs">
+								  	<a href="{{ url('/assignments/'.$assignment->id.'/edit') }}" type="button" class="btn btn-success btn-xs">
 								  		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 								  	</a>
-								  	<a href="javascript:void(0);" class="btn btn-danger btn-xs" onclick="$(this).find('form').submit();" >
-								  		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										<form action="{{ url('/teacher/assignments/'.$assignment->id) }}" method="post">
-											{{ csrf_field() }}
-											{{ method_field('DELETE') }}
-										</form>
-									</a>
 								</div>
 							</td>
 		    			</tr>

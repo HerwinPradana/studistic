@@ -1,8 +1,9 @@
 <?php
 
-namespace Studistic\Http\Controllers;
+namespace Studistic\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
+use Studistic\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('student/home');
     }
 }

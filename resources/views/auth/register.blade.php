@@ -10,6 +10,20 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">NIM/NIP</label>
+
+                            <div class="col-md-6">
+                                <input id="id_num" type="text" class="form-control" name="id_num" value="{{ old('id_num') }}" required>
+
+                                @if ($errors->has('id_num'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('id_num') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
