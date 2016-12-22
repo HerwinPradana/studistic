@@ -299,6 +299,7 @@ class ComposerStaticInit9a125eca36717af0ebd530a3e4b94aef
         'CreateAssignmentAnswersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_20_132830_create_assignment_answers_table.php',
         'CreateAssignmentAttemptsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_165351_create_assignment_attempts_table.php',
         'CreateAssignmentQuestionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_20_132642_create_assignment_questions_table.php',
+        'CreateAssignmentScoresTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_21_094408_create_assignment_scores_table.php',
         'CreateAssignmentsTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_20_132450_create_assignments_table.php',
         'CreateClassSubjectsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_16_030516_create_class_subjects_table.php',
         'CreateClassesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_20_093035_create_classes_table.php',
@@ -835,6 +836,8 @@ class ComposerStaticInit9a125eca36717af0ebd530a3e4b94aef
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'SoftDeleteAssignmentsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_22_051911_soft_delete_assignments_table.php',
+        'SoftDeleteClassesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_22_051924_soft_delete_classes_table.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
     );

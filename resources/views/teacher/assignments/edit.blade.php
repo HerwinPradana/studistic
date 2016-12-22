@@ -2,7 +2,18 @@
 
 @section('content')
 <div class="panel panel-default">
-    <div class="panel-heading">@if(!empty($assignment->id)) Edit Tugas @else Tugas Baru @endif</div>
+    <div class="panel-heading">
+    	<div class="row">
+			<div class="col-md-6">@if(!empty($assignment->id)) Edit Tugas @else Tugas Baru @endif</div>
+			<div class="col-md-6">
+				<div class="btn-group pull-right" role="group">
+					<a href="{{ url('/teacher/assignments') }}" type="button" class="btn btn-warning btn-xs">
+						<span class="glyphicon glyphicon-share" aria-hidden="true"></span> Kembali
+					</a>
+				</div>
+			</div>
+    	</div>
+    </div>
 
     <div class="panel-body">
     	@if(session('messages'))
@@ -45,7 +56,7 @@
 						</div>
 					</div>
 				</div>
-				<table class="table table-responsive table-borderless table-question">
+				<table id="question_table" class="table table-responsive table-borderless table-question">
 					<tbody>
 						@php
 							$questions	= $assignment->questions()->orderBy('order')->get();
@@ -77,13 +88,13 @@
 										<textarea name="questions[{{ $question->id }}][text]" class="form-control">{{ $question->text }}</textarea>
 									</td>
 									<td>
-										<button type="button" class="btn btn-default btn-xs btn-danger">
+										<button type="button" class="btn btn-default btn-xs btn-danger delete-question">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										</button>
 									</td>
 								</tr>
 								<!-- OPTIONS -->
-								<tr class="option-row">
+								<tr>
 									<td>
 										<button type="button" class="btn btn-default btn-xs btn-success add-option"
 											data-toggle="tooltip" data-placement="bottom"
@@ -99,7 +110,7 @@
 												<tr class="no-data"><td class="text-center" colspan="4">-- Belum ada pilihan --</td></tr>
 											@else
 												@foreach($options as $j => $option)
-													<tr>
+													<tr class="option-row">
 														<td>
 															<!-- Order -->
 															<input
@@ -141,7 +152,7 @@
 																@if($option->is_correct == 1) checked @endif>
 														</td>
 														<td>
-															<button type="button" class="btn btn-default btn-xs btn-danger">
+															<button type="button" class="btn btn-default btn-xs btn-danger delete-option">
 																<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 															</button>
 														</td>
@@ -172,130 +183,14 @@
 			<input type="hidden" id="new_question_count" value="0">
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-success">Simpan</button>
-					<a href="{{ url('teacher/assignments') }}" class="btn btn-warning">Batal</a>
+					<div class="btn-group" role="group">
+						<button type="submit" class="btn btn-success">Simpan</button>
+						<a href="{{ url('teacher/assignments') }}" class="btn btn-warning">Batal</a>
+					</div>
 				</div>
 			</div>
 		{{ Form::close() }}
     </div>
 </div>
-<script>
-$(document).ready(function(){
-	var chars = ['a', 'b', 'c', 'd', 'e'];
-	
-	$('.add-question').click(function(){
-		var count = parseInt($('#new_question_count').val()) + 1;
-		var order = 0;
-		
-    	$('#new_question_count').val(count);
-
-		if($('.table-question').find('tr:first').hasClass('no-data')){
-			$('.table-question').find('tr:first').remove();
-			order = 1;
-		}
-		else{
-	    	order = parseInt($('.table-question').find('.question-row:last').find('td:first').text()) + 1;
-		}
-		
-		var html = [];
-		
-		html.push('<tr class="question-row">');
-		html.push('<td><input type="hidden" name="new_questions[' + count + '][order]" value="' + order + '"><span>' + order + '.</span></td>');
-		
-		// Move buttons.
-		html.push('<td><div class="btn-group-vertical" role="group">');
-		html.push('<button type="button" class="btn btn-default btn-xs question-move-up">');
-		html.push('<span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>');
-		html.push('</button>');
-		html.push('<button type="button" class="btn btn-default btn-xs question-move-down">');
-		html.push('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-		html.push('</button>');
-		html.push('</div></td>');
-		
-		html.push('<td><textarea name="new_questions[' + count + '][text]" class="form-control"></textarea></td>');
-		
-		// Delete button.
-		html.push('<td><button type="button" class="btn btn-default btn-xs btn-danger">');
-		html.push('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>');
-		html.push('</button></td>');
-		html.push('</tr>');
-		
-		html.push('<tr class="option-row">');
-		html.push('<td>');
-		html.push('<button type="button" class="btn btn-default btn-xs btn-success add-option" data-toggle="tooltip" data-placement="bottom" title="Click untuk menambahkan pilihan baru untuk soal ini.">');
-		html.push('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>');
-		html.push('</button>');
-		html.push('</td>');
-		
-		html.push('<td class="option-column" colspan="3"><table class="table table-responsive table-borderless table-option">');
-		html.push('<tr class="no-data"><td class="text-center" colspan="4">-- Belum ada pilihan --</td></tr>');
-		html.push('</table></td>');
-		html.push('</tr>');
-		
-		var parent = $('.table-question').find('tbody:first');
-		
-		$(html.join('')).hide().appendTo(parent).show('normal');
-		$('html, body').stop(true, false).animate({scrollTop: $('html').height()}, 800);
-	});
-	
-	$(document).on('click', '.add-option', function(){
-		var option_row	= $(this).parent().parent();
-		var parent		= option_row.find('.table-option').find('tbody:first');
-		var count		= parent.find('tr').length;
-		
-		if(count < chars.length){
-			var order = 0;
-
-			if(option_row.find('.table-option').find('tr:first').hasClass('no-data')){
-				option_row.find('.table-option').find('tr:first').remove();
-				order = 1;
-				count = 0;
-			}
-			else{
-				order = parseInt(option_row.find('.table-option').find('tr:last').find('td:first').find('input').val()) + 1;
-			}
-		
-			var html = [];
-			
-			var question_name = option_row.prev().find('input').attr('name');
-			question_name 	  = question_name.split('[');
-			question_name	  = question_name[0] + '[' + question_name[1];
-			
-			html.push('<tr>');
-			html.push('<td>');
-			html.push('<input type="hidden" name="' + question_name + '[new_options][' + count + '][order]" value="' + order + '">');
-			html.push('<span>' + chars[order-1] + '.</span>');
-			html.push('</td>');
-			html.push('<td>');
-			html.push('<div class="btn-group" role="group">');
-			html.push('<button type="button" class="btn btn-default btn-xs option-move-up">');
-			html.push('<span class="glyphicon glyphicon-triangle-top aria-hidden="true"></span>');
-			html.push('</button>');
-			html.push('<button type="button" class="btn btn-default btn-xs option-move-down">');
-			html.push('<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>');
-			html.push('</button>');
-			html.push('</div>');
-			html.push('</td>');
-			html.push('<td>');
-			html.push('<input type="text" name="' + question_name + '[new_options][' + count + '][text]" class="form-control">');
-			html.push('</td>');
-			html.push('<td>');
-			html.push('<input type="checkbox" name="' + question_name + '[new_options][' + count + '][is_correct]" data-toggle="tooltip" data-placement="bottom" title="Centang jika jawaban ini bernilai benar." value="1">');
-			html.push('</td>');
-			html.push('<td>');
-			html.push('<button type="button" class="btn btn-default btn-xs btn-danger">');
-			html.push('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>');
-			html.push('</button>');
-			html.push('</td>');
-			html.push('</tr>');
-		
-			$(html.join('')).hide().appendTo(parent).show('normal');
-		}
-	});
-	
-	$('.question-move-up').click(function(){
-		//alert('test');
-	});
-});
-</script>
+<script src="{{ asset('js/assignment.js') }}"></script>
 @endsection

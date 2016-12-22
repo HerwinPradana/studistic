@@ -3,12 +3,16 @@
 namespace Studistic;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Assignment extends Model{
 
+	use SoftDeletes;
+	
 	protected $table	= 'assignments';
 	public $timestamps	= true;
 
+	protected $dates	= ['deleted_at'];
     protected $fillable = ['name', 'description'];
     
     public function classes(){
@@ -21,5 +25,9 @@ class Assignment extends Model{
     
     public function attempts(){
     	return $this->hasMany('Studistic\Attempt', 'assignment_id');
+	}
+    
+    public function scores(){
+    	return $this->hasMany('Studistic\Score', 'assignment_id');
 	}
 }

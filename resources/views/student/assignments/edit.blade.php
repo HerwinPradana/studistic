@@ -77,8 +77,10 @@
 			<input type="hidden" name="id" value="{{ $assignment->id }}">
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-success">Simpan</button>
-					<a href="{{ url('assignments') }}" class="btn btn-warning">Batal</a>
+					<div class="btn-group" role="group">
+						<button type="submit" class="btn btn-success">Simpan</button>
+						<a href="{{ url('assignments') }}" class="btn btn-warning">Batal</a>
+					</div>
 				</div>
 			</div>
 		{{ Form::close() }}

@@ -16,7 +16,7 @@ class AssignmentController extends Controller{
     }
     
     public function index(){
-	    $data	 	= Assignment::orderBy('created_at', 'desc')->get();
+	    $data = Assignment::orderBy('created_at', 'desc')->get();
 	    
         return view('teacher/assignments/index', ['assignments' => $data]);
     }
@@ -26,7 +26,7 @@ class AssignmentController extends Controller{
     	
     	$class_options = array();
     	foreach($classes as $class){
-    		$class_options[$class->id] = $class->name;
+    		$class_options[$class->id] = $class->name.' - '.$class->subject;
     	}
     	
     	$assignment = new Assignment();
@@ -75,7 +75,7 @@ class AssignmentController extends Controller{
     	
     	$class_options = array();
     	foreach($classes as $class){
-    		$class_options[$class->id] = $class->name;
+    		$class_options[$class->id] = $class->name.' - '.$class->subject;
     	}
     	
         return view('teacher/assignments/edit', ['assignment' => $assignment, 'classes' => $class_options]);

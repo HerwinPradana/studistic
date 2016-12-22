@@ -11,6 +11,7 @@ use Studistic\Question;
 use Studistic\Option;
 use Studistic\Attempt;
 use Studistic\Answer;
+use Studistic\Score;
 
 class AssignmentController extends Controller{
 
@@ -42,12 +43,14 @@ class AssignmentController extends Controller{
 
     public function update(Request $request){
     	$id = $request->input('id');
+    	$user_id = \Auth::user()->id;
 
 		$score = 0;
 		
     	$questions 	= $request->input('questions');
     	$assignment = Assignment::find($id);
     	
+    	// Calculate attempt's score.
     	foreach($assignment->questions as $question){
     		foreach($question->options as $option){
     			if($questions[$question->id] == $option->id && $option->is_correct)
@@ -58,16 +61,33 @@ class AssignmentController extends Controller{
     	$n_questions = $assignment->questions->count();
     	$score = ($n_questions > 0)? ($score / $n_questions) * 10 : 0;
     	
-		$attempt = new Attempt(array('score' => $score, 'created_by' => \Auth::user()->id));
+		$attempt = new Attempt(array('score' => $score, 'created_by' => $user_id));
 		$attempt = $assignment->attempts()->save($attempt);
 		
+		// Save the answers.
 		$answers = array();
 		foreach($questions as $question_id => $answer){
-			$answers[] = new Answer(array('question_id' => $question_id, 'option_id' => $answer));
+			$answers[] = new Answer(['question_id' => $question_id, 'option_id' => $answer]);
 		}
 		
 		if(!empty($answers))
 			$attempt->answers()->saveMany($answers);
+		
+		// Calculate final score.
+		$total = 0;
+		foreach($assignment->attempts as $attempt){
+			$total += $attempt->score;
+		}
+		$average = ($total > 0)? $total / $assignment->attempts->count() : 0;
+		
+		// Update / save final score.
+		$score = Score::where('assignment_id', $assignment->id)->where('user_id', $user_id)->first();
+		if($score)
+			$score->score = $average;
+		else
+			$score = new Score(['user_id' => $user_id, 'score' => $average]);
+		
+		$assignment->scores()->save($score);
     	
         return redirect('assignments/'.$assignment->id.'/attempts/'.$attempt->id);
     }

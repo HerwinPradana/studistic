@@ -24,6 +24,7 @@ return array(
     'CreateAssignmentAnswersTable' => $baseDir . '/database/migrations/2016_11_20_132830_create_assignment_answers_table.php',
     'CreateAssignmentAttemptsTable' => $baseDir . '/database/migrations/2016_12_19_165351_create_assignment_attempts_table.php',
     'CreateAssignmentQuestionsTable' => $baseDir . '/database/migrations/2016_11_20_132642_create_assignment_questions_table.php',
+    'CreateAssignmentScoresTable' => $baseDir . '/database/migrations/2016_12_21_094408_create_assignment_scores_table.php',
     'CreateAssignmentsTable' => $baseDir . '/database/migrations/2016_11_20_132450_create_assignments_table.php',
     'CreateClassSubjectsTable' => $baseDir . '/database/migrations/2016_12_16_030516_create_class_subjects_table.php',
     'CreateClassesTable' => $baseDir . '/database/migrations/2016_11_20_093035_create_classes_table.php',
@@ -560,6 +561,8 @@ return array(
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\ResourceOperations\\ResourceOperations' => $vendorDir . '/sebastian/resource-operations/src/ResourceOperations.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'SoftDeleteAssignmentsTable' => $baseDir . '/database/migrations/2016_12_22_051911_soft_delete_assignments_table.php',
+    'SoftDeleteClassesTable' => $baseDir . '/database/migrations/2016_12_22_051924_soft_delete_classes_table.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );

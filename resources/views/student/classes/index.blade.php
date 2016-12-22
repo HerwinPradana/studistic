@@ -41,9 +41,11 @@
 								  	<a href="{{ url('/classes/'.$class->id) }}" type="button" class="btn btn-primary btn-xs">
 								  		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								  	</a>
+								  	@if($class->students->where('id', Auth::user()->id)->count() == 0)
 								  	<a href="{{ url('/classes/'.$class->id.'/join') }}" type="button" class="btn btn-success btn-xs">
 								  		<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
 								  	</a>
+								  	@endif
 								</div>
 							</td>
 		    			</tr>
